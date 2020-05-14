@@ -1,0 +1,28 @@
+#시스템 간략 정보 수집
+---
+ - hosts: 그룹명
+   tasks:
+   - name: hostname
+     debug:
+       var=ansible_hostname
+
+   - name: system
+     vars:
+      msg: |
+       Vendor: {{ ansible_system_vendor }}
+       Model: {{ ansible_product_name }}
+       Serial: {{ ansible_product_serial }}
+       OS: {{ ansible_distribution }}
+       OS_Ver: {{ ansible_distribution_version }}
+       Network_Interface: {{ ansible_default_ipv4.interface }}
+       Network_address: {{ ansible_default_ipv4.address }}
+       Network_gateway: {{ ansible_default_ipv4.gateway }}
+       Network_netmask: {{ ansible_default_ipv4.netmask }}
+       Network_mac: {{ ansible_default_ipv4.macaddress }}
+       CPU_Core: {{ ansible_processor_cores }}
+       CPU_Count: {{ ansible_processor_count }}
+       CPU_Thread: {{ ansible_processor_vcpus }}
+       MEM_Total: {{ ansible_memtotal_mb }}
+       MEM_Free: {{ ansible_memfree_mb }}
+     debug:
+      msg: "{{ msg.split('\n') }}"
